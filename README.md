@@ -17,4 +17,6 @@ En este curso será necesario contar con el navegador que prefieran (Chrome, Edg
 [Repaso de SQL](https://www.youtube.com/playlist?list=PL8gxzfBmzgewF28S8REkfHacaSRnwpJeB "Repaso de SQL")  
 [Educacion IT](http://www.educacionit.com "Educacion IT")  
 [Alumni](http://alumni.educacionit.com "Alumni")  
-[Página del Curso](https://www.educacionit.com/curso-de-c-sharp-net "Página del Curso")
+[Página del Curso](https://www.educacionit.com/curso-de-c-sharp-net "Página del Curso")  
+[Ejercicios Pagina 1](https://www.w3resource.com/csharp-exercises/)  
+[Ejercicios Pagina 2](https://www.w3schools.com/cs/cs_exercises.asp)
