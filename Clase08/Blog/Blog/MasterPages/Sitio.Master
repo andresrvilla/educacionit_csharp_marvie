@@ -1,0 +1,89 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Sitio.master.cs" Inherits="Blog.MasterPages.Sitio" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title></title>
+    <link rel="Stylesheet" href="<%=Page.ResolveUrl("~/Content/bootstrap.min.css") %>" />
+    <script src="<%=Page.ResolveUrl("~/Scripts/jquery-3.0.0.slim.js") %>"></script>
+    <script src="<%=Page.ResolveUrl("~/Scripts/bootstrap.bundle.min.js") %>"></script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <asp:HyperLink runat="server" NavigateUrl="~/Default.aspx" CssClass="nav-brand">
+                <%--<asp:Image runat="server" ImageUrl="~/Images/logo-it.jpg" Width="30px" />--%>
+                <asp:Label runat="server" ID="lblNombreBlog"></asp:Label>
+            </asp:HyperLink>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Ayuda
+                </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <asp:HyperLink runat="server" NavigateUrl="~/Ayuda/AcercaDe/Default.aspx" CssClass="nav-link">Acerca de</asp:HyperLink>
+                  </div>
+              </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownContadores" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Contadores
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownContadores">
+                        <asp:HyperLink runat="server" NavigateUrl="~/Contadores/Post.aspx" CssClass="nav-link">Contador Post</asp:HyperLink>
+                        <asp:HyperLink runat="server" NavigateUrl="~/Contadores/PostFacil.aspx" CssClass="nav-link">Contador Post "Facil"</asp:HyperLink>
+                        <asp:HyperLink runat="server" NavigateUrl="~/Contadores/PostServidor.aspx" CssClass="nav-link">Contador Servidor</asp:HyperLink>
+                        <asp:HyperLink runat="server" NavigateUrl="~/Contadores/PostAplicacion.aspx" CssClass="nav-link">Contador Aplicacion</asp:HyperLink>
+                    </div>
+                </li>
+              <%--<li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Dropdown
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+              </li>--%>
+            </ul>
+          </div>
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2 col-3">
+                    Aca iria el menu<br />
+                    Visto por ultima vez: <br />
+                    <asp:Label runat="server" ID="lblUltimaVez"></asp:Label>
+                </div>
+                <div class="col-md-7 col-9">
+                    <asp:ContentPlaceHolder ID="contenidoPrincipal" runat="server">
+                    </asp:ContentPlaceHolder>
+                </div>
+                <div class="col-md-3">
+                    Publicidades
+                </div>
+            </div>
+            
+        </div>
+    </form>
+</body>
+</html>
