@@ -18,7 +18,7 @@ namespace Blog.MasterPages
             string mensajeUltimoIngreso = "";
 
             // Para leer las cookies uso REQUEST!!!
-            if (Request.Cookies[NOMBRE_COOKIE]==null || String.IsNullOrWhiteSpace(Request.Cookies[NOMBRE_COOKIE].Value) == true)
+            if (Request.Cookies[NOMBRE_COOKIE] == null || String.IsNullOrWhiteSpace(Request.Cookies[NOMBRE_COOKIE].Value) == true)
             {
                 mensajeUltimoIngreso = "Ud. Ingresa por primera vez";
             }
