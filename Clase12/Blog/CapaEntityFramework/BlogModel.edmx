@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="EducacionIT.BlogModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Categorias">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="120" />
+        </EntityType>
+        <EntityType Name="Comentarios">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Autor" Type="nvarchar" MaxLength="120" />
+          <Property Name="Comentario" Type="nvarchar(max)" />
+          <Property Name="IdPost" Type="int" />
+        </EntityType>
+        <EntityType Name="Post">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Titulo" Type="nvarchar" MaxLength="255" />
+          <Property Name="Resumen" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Cuerpo" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="PostCategorias">
+          <Key>
+            <PropertyRef Name="IdPost" />
+            <PropertyRef Name="IdCategoria" />
+          </Key>
+          <Property Name="IdPost" Type="int" Nullable="false" />
+          <Property Name="IdCategoria" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Comentarios_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="0..1" />
+          <End Role="Comentarios" Type="Self.Comentarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comentarios">
+              <PropertyRef Name="IdPost" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostCategorias_Categorias">
+          <End Role="Categorias" Type="Self.Categorias" Multiplicity="1" />
+          <End Role="PostCategorias" Type="Self.PostCategorias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categorias">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostCategorias">
+              <PropertyRef Name="IdCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostCategorias_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="1" />
+          <End Role="PostCategorias" Type="Self.PostCategorias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostCategorias">
+              <PropertyRef Name="IdPost" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="SP_Categorias" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ParametroNumerico" Type="int" Mode="In" />
+          <Parameter Name="ParametroTexto" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="EducacionITBlogModelStoreContainer">
+          <EntitySet Name="Categorias" EntityType="Self.Categorias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comentarios" EntityType="Self.Comentarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PostCategorias" EntityType="Self.PostCategorias" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Comentarios_Post" Association="Self.FK_Comentarios_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="Comentarios" EntitySet="Comentarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostCategorias_Categorias" Association="Self.FK_PostCategorias_Categorias">
+            <End Role="Categorias" EntitySet="Categorias" />
+            <End Role="PostCategorias" EntitySet="PostCategorias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostCategorias_Post" Association="Self.FK_PostCategorias_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="PostCategorias" EntitySet="PostCategorias" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EducacionIT.BlogModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Posts" Relationship="Self.PostCategorias" FromRole="Categorias" ToRole="Post" />
+        </EntityType>
+        <EntityType Name="Comentario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Autor" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+          <Property Name="Comentario1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IdPost" Type="Int32" />
+          <NavigationProperty Name="Post" Relationship="Self.FK_Comentarios_Post" FromRole="Comentarios" ToRole="Post" />
+        </EntityType>
+        <EntityType Name="Post">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Titulo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Resumen" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Cuerpo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Comentarios" Relationship="Self.FK_Comentarios_Post" FromRole="Post" ToRole="Comentarios" />
+          <NavigationProperty Name="Categorias" Relationship="Self.PostCategorias" FromRole="Post" ToRole="Categorias" />
+        </EntityType>
+        <Association Name="FK_Comentarios_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="0..1" />
+          <End Role="Comentarios" Type="Self.Comentario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comentarios">
+              <PropertyRef Name="IdPost" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PostCategorias">
+          <End Role="Categorias" Type="Self.Categoria" Multiplicity="*" />
+          <End Role="Post" Type="Self.Post" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="BlogEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categorias" EntityType="Self.Categoria" />
+          <EntitySet Name="Comentarios" EntityType="Self.Comentario" />
+          <EntitySet Name="Posts" EntityType="Self.Post" />
+          <AssociationSet Name="FK_Comentarios_Post" Association="Self.FK_Comentarios_Post">
+            <End Role="Post" EntitySet="Posts" />
+            <End Role="Comentarios" EntitySet="Comentarios" />
+          </AssociationSet>
+          <AssociationSet Name="PostCategorias" Association="Self.PostCategorias">
+            <End Role="Categorias" EntitySet="Categorias" />
+            <End Role="Post" EntitySet="Posts" />
+          </AssociationSet>
+          <FunctionImport Name="SP_Categorias" ReturnType="Collection(EducacionIT.BlogModel.SP_Categorias_Result)">
+            <Parameter Name="ParametroNumerico" Mode="In" Type="Int32" />
+            <Parameter Name="ParametroTexto" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="SP_Categorias_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="120" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EducacionITBlogModelStoreContainer" CdmEntityContainer="BlogEntities">
+          <EntitySetMapping Name="Categorias">
+            <EntityTypeMapping TypeName="EducacionIT.BlogModel.Categoria">
+              <MappingFragment StoreEntitySet="Categorias">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comentarios">
+            <EntityTypeMapping TypeName="EducacionIT.BlogModel.Comentario">
+              <MappingFragment StoreEntitySet="Comentarios">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Autor" ColumnName="Autor" />
+                <ScalarProperty Name="Comentario1" ColumnName="Comentario" />
+                <ScalarProperty Name="IdPost" ColumnName="IdPost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Posts">
+            <EntityTypeMapping TypeName="EducacionIT.BlogModel.Post">
+              <MappingFragment StoreEntitySet="Post">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="Resumen" ColumnName="Resumen" />
+                <ScalarProperty Name="Cuerpo" ColumnName="Cuerpo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="PostCategorias" TypeName="EducacionIT.BlogModel.PostCategorias" StoreEntitySet="PostCategorias">
+            <EndProperty Name="Categorias">
+              <ScalarProperty Name="Id" ColumnName="IdCategoria" />
+            </EndProperty>
+            <EndProperty Name="Post">
+              <ScalarProperty Name="Id" ColumnName="IdPost" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="SP_Categorias" FunctionName="EducacionIT.BlogModel.Store.SP_Categorias">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EducacionIT.BlogModel.SP_Categorias_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
